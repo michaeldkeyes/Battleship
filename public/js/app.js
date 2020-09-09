@@ -65,9 +65,6 @@ const shipArray = [
 
 createBoard(userGrid, userSquares);
 createBoard(computerGrid, computerSquares);
-computerGrid.childNodes.forEach((square) => {
-  square.addEventListener("click", fireOnSquare);
-});
 
 function fireOnSquare(e) {
   if (
@@ -99,6 +96,9 @@ function startSinglePlayer() {
     if (allShipsPlaced) {
       setupButtons.style.display = "none";
       infoDisplay.innerHTML = "";
+      computerGrid.childNodes.forEach((square) => {
+        square.addEventListener("click", fireOnSquare);
+      });
       playGameSingle();
     } else infoDisplay.innerHTML = "Please place all ships";
   });
@@ -258,7 +258,9 @@ function dragDrop() {
   } else return;
 
   displayGrid.removeChild(draggedShip);
-  if (!displayGrid.querySelector(".ship")) allShipsPlaced = true;
+  if (!displayGrid.querySelector(".ship")) {
+    allShipsPlaced = true;
+  }
 }
 
 // Returns true if there is not any ships in the squares
